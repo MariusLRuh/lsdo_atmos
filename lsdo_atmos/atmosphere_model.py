@@ -8,8 +8,8 @@ class AtmosphereModel(Model):
         self.parameters.declare('shape', types=tuple)
     def define(self):
         shape = self.parameters['shape']
-        h = self.declare_variable('altitude',shape=shape, val=1000) * 1e-3
-        L = 6.5
+        h = self.declare_variable('altitude',shape=shape, val=1000) * 1e-3 # value in meters; then convert to km
+        L = 6.5 # K/km
         R = 287
         T0 = 288.16
         P0 = 101325
@@ -18,7 +18,7 @@ class AtmosphereModel(Model):
         S1 = 110.4
         gamma = 1.4
 
-         # Temperature 
+        # Temperature 
         T           = T0 + (-L * h)
 
         # Pressure 
