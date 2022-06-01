@@ -1,34 +1,25 @@
 import numpy as np
 from csdl import Model
 import csdl
-
-from inputs_model import InputsModel
+from csdl_om import Simulator
 
 class AtmosphereModel(Model):
     def initialize(self):
         self.parameters.declare('shape', types=tuple)
-        self.parameters.declare('h', types=np.ndarray)
     def define(self):
         shape = self.parameters['shape']
-        h = self.parameters['h']
-        self.add(InputsModel(
-            shape=shape,
-            h=h,
-        ))
-
-        h = self.declare_variable('altitude', shape=shape) * 1e-3 # convert from m to km
-        
-        L           = 6.5
-        R           = 287
-        T0          = 288.16
-        P0          = 101325
-        g0          = 9.81
-        mu0         = 1.735e-5
-        S1          = 110.4
+        h = self.declare_variable('altitude',shape=shape, val=1000) * 1e-3
+        L = 6.5
+        R = 287
+        T0 = 288.16
+        P0 = 101325
+        g0 = 9.81
+        mu0 = 1.735e-5
+        S1 = 110.4
         gamma = 1.4
 
          # Temperature 
-        T           = T0 - L * h
+        T           = T0 + (-L * h)
 
         # Pressure 
         P           = P0 * (T/T0)**(g0/(L * 1e-3)/R)
@@ -47,4 +38,16 @@ class AtmosphereModel(Model):
         self.register_output('density',rho)
         self.register_output('dynamic_viscosity',mu)
         self.register_output('speed_of_sound', a)
+
+sim = Simulator(AtmosphereModel(
+    shape=(1,),
+))
+sim.run()
+print('temperature [K]: ', sim['temperature'])
+print('pressure [Pa]: ',sim['pressure'])
+print('density [kg/m^3]: ',sim['density'])
+print('dynamic_viscosity [N s/m^2]: ',sim['dynamic_viscosity'])
+print('speed_of_sound [m/s]: ', sim['speed_of_sound'])
+
+
         
