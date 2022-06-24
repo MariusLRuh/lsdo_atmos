@@ -2,8 +2,6 @@ README.md
 setup.py
 lsdo_atmos/__init__.py
 lsdo_atmos/atmosphere_model.py
-lsdo_atmos/inputs_model.py
-lsdo_atmos/run.py
 lsdo_atmos.egg-info/PKG-INFO
 lsdo_atmos.egg-info/SOURCES.txt
 lsdo_atmos.egg-info/dependency_links.txt
