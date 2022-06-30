@@ -19,8 +19,6 @@ class AtmosphereModel(Model):
         gamma = 1.4
 
         # Temperature 
-        # T0 = 10 
-        # L = 2 
         T           =  - h * L + T0
 
         # Pressure 
