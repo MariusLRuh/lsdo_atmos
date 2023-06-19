@@ -9,6 +9,5 @@ setup(
     install_requires=[
         'openmdao',
         'csdl',
-        'csdl_om',
     ],
 )
